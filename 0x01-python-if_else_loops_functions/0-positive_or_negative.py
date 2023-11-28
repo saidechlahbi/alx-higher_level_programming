@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 import random
+
 number = random.randint(-10, 10)
+
 if number > 0:
-    print(f"{number:} is positive")
+    classification = "positive"
 elif number == 0:
- print(f"{number:d} is zero")
+    classification = "zero"
 else:
-    print(f"{number:d} is negative")
+    classification = "negative"
+
+print("{:d} is {}".format(number, classification))
