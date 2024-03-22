@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """ ___ Description ___
 A script that adds the State object “Louisiana” to the database hbtn_0e_6_usa
