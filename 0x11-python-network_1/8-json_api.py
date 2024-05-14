@@ -1,22 +1,24 @@
 #!/usr/bin/python3
-"""__summary__
-- Write a Python script that takes in a letter
--  and sends a POST request to http://0.0.0.0:5000/search_user 
-- with the letter as a parameter.
-"""
-import sys
-import requests
+"""Sends a request to the URL and displays the body of the response."""
 
-if __name__ == "__main__":
-    letter = sys.argv[1] if (sys.argv[1]) else ""
-    value = {"q": letter}
 
-    reqs = requests.post("http://0.0.0.0:5000/search_user", data=value)
-    try:
-        data = reqs.json()
-        if data == {}:
-            print("No result")
+if __name__ == '__main__':
+    from requests import post
+    from sys import argv
+
+    URL = 'http://0.0.0.0:5000/search_user'
+    data = {'q': argv[1] if len(argv) >= 2 else ""}
+    response = post(URL, data)
+
+    type_res = response.headers['content-type']
+
+    if type_res == 'application/json':
+        result = response.json()
+        _id = result.get('id')
+        name = result.get('name')
+        if (result != {} and _id and name):
+            print("[{}] {}".format(_id, name))
         else:
-            print("[{}] {}".format(data.get("id"), data.get("name")))
-    except ValueError:
-        print("Not a valid JSON")
+            print('No result')
+    else:
+        print('Not a valid JSON')

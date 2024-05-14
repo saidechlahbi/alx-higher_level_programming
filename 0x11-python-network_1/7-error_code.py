@@ -1,17 +1,14 @@
 #!/usr/bin/python3
-"""__summary__
-- Write a Python script that takes in a URL, 
-- sends a request to the URL and 
-- displays the body of the response.
-"""
-import sys
-import requests
+"""Sends a request to the URL and displays the body of the response."""
+
 
 if __name__ == '__main__':
-    url = sys.argv[1]
+    from sys import argv
+    from requests import get
 
-    reqs = requests.get(url)
-    if reqs.status_code >= 400:
-        print('Error code: {}'.format(reqs.status_code))
-    else:
-        print(reqs.text)
+    url = argv[1]
+
+    response = get(url)
+    ERR_TXT = 'Error code: {}'
+    status = response.status_code
+    print(ERR_TXT.format(status) if (status >= 400) else response.text)
