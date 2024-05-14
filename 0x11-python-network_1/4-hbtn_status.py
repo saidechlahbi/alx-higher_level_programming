@@ -1,13 +1,18 @@
 #!/usr/bin/python3
-"""__summary__
-- Write a Python script that
-- fetches https://intranet.hbtn.io/status.
 """
-import requests
+Sends a request to the URL and displays the body of the response
+(decoded in utf-8).
+"""
 
 
-if __name__ == "__main__":
-    r = requests.get("https://intranet.hbtn.io/status")
-    print("Body response:")
-    print("\t- type: {}".format(type(r.text)))
-    print("\t- content: {}".format(r.text))
+if __name__ == '__main__':
+    import sys
+    from urllib import request, error
+
+    argv = sys.argv
+    url = argv[1]
+    try:
+        with request.urlopen(url) as response:
+            print(response.read().decode('utf-8'))
+    except error.HTTPError as err:
+        print("Error code: {}".format(err.status))
